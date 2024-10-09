@@ -1,0 +1,265 @@
+general:
+  # 当窗口管理器启动时运行的命令。这对于运行脚本或启动另一个应用程序很有用。
+  # 示例：下面的命令启动了 Zebar。
+  startup_commands: ["shell-exec zebar"]
+
+  # 窗口管理器关闭前运行的命令。
+  # 示例：下面的命令终止了 Zebar。
+  shutdown_commands: ["shell-exec taskkill /IM zebar.exe /F"]
+
+  # 窗口管理器配置重新加载后运行的命令。
+  config_reload_commands: []
+
+  # 是否自动将焦点跟随光标。
+  focus_follows_cursor: false
+
+  # 是否在聚焦当前工作区时，来回切换之前聚焦的工作区。
+  toggle_workspace_on_refocus: false
+
+  cursor_jump:
+    # 是否在指定的触发器上自动移动光标。
+    enabled: true
+
+    # 光标跳跃的触发器：
+    # - 'monitor_focus': 当监视器焦点变化时跳跃。
+    # - 'window_focus': 当窗口焦点变化时跳跃。
+    trigger: "monitor_focus"
+
+gaps:
+  # 相邻窗口之间的间隙。
+  inner_gap: "20px"
+
+  # 窗口与屏幕边缘之间的间隙。
+  outer_gap:
+    top: "40px"
+    right: "20px"
+    bottom: "20px"
+    left: "20px"
+
+window_effects:
+  # 对焦点窗口应用的视觉效果。
+  focused_window:
+    # 用彩色边框突出显示窗口。
+    # ** 仅限于 Windows 11，由于 API 限制。
+    border:
+      enabled: false
+      color: "#8dbcff"
+
+  # 对非焦点窗口应用的视觉效果。
+  other_windows:
+    border:
+      enabled: false
+      color: "#a1a1a1"
+
+window_behavior:
+  # 尽可能在这种状态下创建新窗口。
+  # 允许的值：'tiling', 'floating'.
+  initial_state: "tiling"
+
+  # 设置新窗口创建时的默认选项。这也改变了状态更改命令（如 `set-floating`）在没有标志时的默认值。
+  state_defaults:
+    floating:
+      # 默认情况下是否居中浮动窗口。
+      centered: true
+
+      # 是否显示浮动窗口为始终位于顶部。
+      shown_on_top: false
+
+    fullscreen:
+      # 如果可能，最大化窗口。如果窗口没有最大化按钮，那么它将正常全屏。
+      maximized: false
+
+      # 是否显示全屏窗口为始终位于顶部。
+      shown_on_top: false
+
+workspaces:
+  - name: "1"
+  - name: "2"
+  - name: "3"
+  - name: "4"
+  - name: "5"
+  - name: "6"
+  - name: "7"
+  - name: "8"
+  - name: "9"
+
+window_rules:
+  - commands: ["ignore"]
+    match:
+      # 忽略任何 Zebar 窗口。
+      - window_process: { equals: "zebar" }
+
+      # 忽略浏览器的画中画窗口。
+      - window_title: { regex: "[Pp]icture.in.[Pp]icture" }
+        window_class: { regex: "Chrome_WidgetWin_1|MozillaDialogClass" }
+
+      # 各种第三方应用程序的忽略规则。
+      - window_process: { equals: "PowerToys" }
+        window_class: { regex: 'HwndWrapper\[PowerToys\.PowerAccent.*?\]' }
+      - window_process: { equals: "Lively" }
+        window_class: { regex: "HwndWrapper*" }
+
+binding_modes:
+  # 当启用时，可以通过箭头键或 HJKL 调整焦点窗口的大小。
+  - name: "resize"
+    keybindings:
+      - commands: ["resize --width +2%"]
+        bindings: ["h", "left"]
+      - commands: ["resize --width -2%"]
+        bindings: ["l", "right"]
+      - commands: ["resize --height +2%"]
+        bindings: ["k", "up"]
+      - commands: ["resize --height -2%"]
+        bindings: ["j", "down"]
+      # 按回车/退出键返回默认键绑定。
+      - commands: ["wm-disable-binding-mode --name resize"]
+        bindings: ["escape", "enter", "alt+w"]
+
+  # 当启用时，除了 alt+shift+p 外，所有键绑定都被禁用，该键绑定返回默认键绑定。
+  - name: "pause"
+    keybindings:
+      - commands: ["wm-disable-binding-mode --name pause"]
+        bindings: ["alt+shift+p"]
+
+keybindings:
+  # 按给定方向移动焦点。
+  - commands: ["focus --direction left"]
+    bindings: ["alt+shift+h", "alt++shiftleft"]
+  - commands: ["focus --direction right"]
+    bindings: ["alt+shift+l", "alt+shift+right"]
+  - commands: ["focus --direction up"]
+    bindings: ["alt+shift+k", "alt+shift+up"]
+  - commands: ["focus --direction down"]
+    bindings: ["alt+shift+j", "alt+shift+down"]
+
+  # 按给定方向移动焦点窗口。
+  - commands: ["move --direction left"]
+    bindings: ["alt+shift+ctrl+h", "alt+shift+ctrl+left"]
+  - commands: ["move --direction right"]
+    bindings: ["alt+shift+ctrl+l", "alt+shift+ctrl+right"]
+  - commands: ["move --direction up"]
+    bindings: ["alt+shift+ctrl+k", "alt+shift+ctrl+up"]
+  - commands: ["move --direction down"]
+    bindings: ["alt+shift+ctrl+j", "alt+shift+ctrl+down"]
+
+  # 按百分比或像素量调整焦点窗口的大小。
+  - commands: ["resize --width -2%"]
+    bindings: ["alt+u"]
+  - commands: ["resize --width +2%"]
+    bindings: ["alt+p"]
+  - commands: ["resize --height +2%"]
+    bindings: ["alt+o"]
+  - commands: ["resize --height -2%"]
+    bindings: ["alt+i"]
+
+  # 作为上面调整大小键绑定的替代，调整大小模式允许通过箭头键或 HJKL 调整大小。绑定模式在上面定义，名称为 'resize'。
+  - commands: ["wm-enable-binding-mode --name resize"]
+    bindings: ["alt+w"]
+
+  # 禁用所有键绑定，直到再次按下 alt+shift+p。
+  - commands: ["wm-enable-binding-mode --name pause"]
+    bindings: ["alt+shift+p"]
+
+  # 改变平铺方向。这决定了新平铺窗口将被插入的位置。
+  - commands: ["toggle-tiling-direction"]
+    bindings: ["alt+shift+v"]
+
+  # 改变焦点从平铺窗口 -> 浮动 -> 全屏。
+  - commands: ["wm-cycle-focus"]
+    bindings: ["alt+shift+g"]
+
+  # 将焦点窗口更改为浮动。
+  - commands: ["toggle-floating --centered"]
+    bindings: ["alt+v"]
+
+  # 将焦点窗口更改为平铺。
+  - commands: ["toggle-tiling"]
+    bindings: ["alt+f"]
+
+  # 将焦点窗口更改为全屏。
+  - commands: ["toggle-fullscreen"]
+    bindings: ["alt+m"]
+
+  # 最小化焦点窗口。
+  - commands: ["toggle-minimized"]
+    bindings: ["alt+n"]
+
+  # 关闭焦点窗口。
+  - commands: ["close"]
+    bindings: ["alt+c"]
+
+  # 安全地终止 GlazeWM 进程。
+  - commands: ["wm-exit"]
+    bindings: ["alt+shift+e"]
+
+  # 重新评估配置文件。
+  - commands: ["wm-reload-config"]
+    bindings: ["alt+e"]
+
+  # 重新绘制所有窗口。
+  - commands: ["wm-redraw"]
+    bindings: ["alt+shift+w"]
+
+  # 启动 CMD 终端。或者，使用 `shell-exec wt` 或 `shell-exec %ProgramFiles%/Git/git-bash.exe` 分别启动 Windows 终端和 Git Bash。
+  - commands: ["shell-exec powershell"]
+    bindings: ["alt+q"]
+
+  # 聚焦下一个/上一个在 `workspaces` 配置中定义的工作区。
+  - commands: ["focus --next-workspace"]
+    bindings: ["alt+s"]
+  - commands: ["focus --prev-workspace"]
+    bindings: ["alt+a"]
+
+  # 聚焦最后一个聚焦的工作区。
+  - commands: ["focus --recent-workspace"]
+    bindings: ["alt+d"]
+
+  # 改变焦点到 `workspaces` 配置中定义的工作区。
+  - commands: ["focus --workspace 1"]
+    bindings: ["alt+1"]
+  - commands: ["focus --workspace 2"]
+    bindings: ["alt+2"]
+  - commands: ["focus --workspace 3"]
+    bindings: ["alt+3"]
+  - commands: ["focus --workspace 4"]
+    bindings: ["alt+4"]
+  - commands: ["focus --workspace 5"]
+    bindings: ["alt+5"]
+  - commands: ["focus --workspace 6"]
+    bindings: ["alt+6"]
+  - commands: ["focus --workspace 7"]
+    bindings: ["alt+7"]
+  - commands: ["focus --workspace 8"]
+    bindings: ["alt+8"]
+  - commands: ["focus --workspace 9"]
+    bindings: ["alt+9"]
+
+  # 将焦点窗口的父工作区移动到给定方向的监视器上。
+  - commands: ["move-workspace --direction left"]
+    bindings: ["alt+shift+a"]
+  - commands: ["move-workspace --direction right"]
+    bindings: ["alt+shift+f"]
+  - commands: ["move-workspace --direction up"]
+    bindings: ["alt+shift+d"]
+  - commands: ["move-workspace --direction down"]
+    bindings: ["alt+shift+s"]
+
+  # 将焦点窗口移动到 `workspaces` 配置中定义的工作区。
+  - commands: ["move --workspace 1", "focus --workspace 1"]
+    bindings: ["alt+shift+1"]
+  - commands: ["move --workspace 2", "focus --workspace 2"]
+    bindings: ["alt+shift+2"]
+  - commands: ["move --workspace 3", "focus --workspace 3"]
+    bindings: ["alt+shift+3"]
+  - commands: ["move --workspace 4", "focus --workspace 4"]
+    bindings: ["alt+shift+4"]
+  - commands: ["move --workspace 5", "focus --workspace 5"]
+    bindings: ["alt+shift+5"]
+  - commands: ["move --workspace 6", "focus --workspace 6"]
+    bindings: ["alt+shift+6"]
+  - commands: ["move --workspace 7", "focus --workspace 7"]
+    bindings: ["alt+shift+7"]
+  - commands: ["move --workspace 8", "focus --workspace 8"]
+    bindings: ["alt+shift+8"]
+  - commands: ["move --workspace 9", "focus --workspace 9"]
+    bindings: ["alt+shift+9"]
