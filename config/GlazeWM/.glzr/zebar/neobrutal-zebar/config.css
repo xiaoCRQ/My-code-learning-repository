@@ -1,0 +1,73 @@
+:root {
+  /* sizes */
+  --height: 2.5rem;
+  --bar-margin-y: 0.1rem;
+  --bar-margin-x: 1.25rem;
+
+  /* fonts */
+  --font-family: "SF Pro Display", Roboto, Helvetica, Arial, sans-serif;
+  --font-size: 16px;
+  --font-weight: 500;
+
+  /* border */
+  --radius: 9999px;
+
+  /* shadow */
+  --shadow-size-bar: 0;
+  --shadow-size-button: 0;
+
+  /* colors */
+  --text: var(--ctp-mocha-text);
+  /* 文本颜色，引用其他变量 */
+  --bg: var(--ctp-mocha-surface0);
+  /* 背景颜色，引用其他变量 */
+  --border: var(--ctp-mocha-crust);
+  /* 边框颜色，引用其他变量 */
+  --border-button: var(--ctp-mocha-crust);
+  /* 按钮边框颜色，引用其他变量 */
+  --shadow: var(--ctp-mocha-mantle);
+  /* 阴影颜色，引用其他变量 */
+  --icon: var(--ctp-mocha-red);
+  /* 图标颜色，引用其他变量 */
+  --memory: var(--ctp-mocha-mauve);
+  /* 内存指示器颜色，引用其他变量 */
+  --cpu: var(--ctp-mocha-pink);
+  /* CPU 指示器颜色，引用其他变量 */
+  --cpu-high-usage: var(--ctp-mocha-red);
+  /* 高 CPU 使用时颜色，引用其他变量 */
+  --battery-good: var(--ctp-mocha-green);
+  /* 电池良好状态颜色，引用其他变量 */
+  --battery-mid: var(--ctp-mocha-peach);
+  /* 电池中等状态颜色，引用其他变量 */
+  --battery-low: var(--ctp-mocha-red);
+  /* 电池低状态颜色，引用其他变量 */
+  --focused-process: var(--ctp-mocha-text);
+  /* 聚焦进程的颜色，引用其他变量 */
+  --process: var(--ctp-mocha-surface2);
+  /* 进程指示器颜色，引用其他变量 */
+  --displayed: var(--ctp-mocha-text);
+  /* 显示内容的颜色，引用其他变量 */
+  --ws-1: var(--ctp-mocha-peach);
+  /* 工作区 1 的颜色，引用其他变量 */
+  --ws-2: var(--ctp-mocha-red);
+  /* 工作区 2 的颜色，引用其他变量 */
+  --ws-3: var(--ctp-mocha-green);
+  /* 工作区 3 的颜色，引用其他变量 */
+  --ws-4: var(--ctp-mocha-blue);
+  /* 工作区 4 的颜色，引用其他变量 */
+  --ws-5: var(--ctp-mocha-mauve);
+  /* 工作区 5 的颜色，引用其他变量 */
+  --tiling-direction: var(--ctp-mocha-lavender);
+  /* 瓷砖方向的颜色，引用其他变量 */
+  --not-playing: var(--ctp-mocha-red);
+  /* 未播放状态颜色，引用其他变量 */
+  --now-playing: var(--ctp-mocha-green);
+  /* 正在播放状态颜色，引用其他变量 */
+  --network: var(--ctp-mocha-text);
+  /* 网络状态颜色，引用其他变量 */
+  --weather: var(--ctp-mocha-text);
+  /* 天气状态颜色，引用其他变量 */
+
+  /* 无阴影 */
+  --border-size: 1px;
+}
